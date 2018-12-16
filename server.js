@@ -1,11 +1,12 @@
-require('../db')();
+require('./db')();
 let express = require('express');
 let bodyParser = require('body-parser');
 let app = express();
-const singleTableModels = require('../models/single-table.models');
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
+
+const singleTableModels = require('./models/single-table.models');
 
 app.post('/api/:table', insertTable);
 app.get('/api/:table', getTable);
