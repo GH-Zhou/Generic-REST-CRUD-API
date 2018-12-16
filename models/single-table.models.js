@@ -11,11 +11,11 @@ singleTableModels.truncateTable = truncateTable;
 module.exports = singleTableModels;
 
 function getTables() {
-    return tables; // it will lost all the data
+    return tables;
 }
 
 // Assume all the fields except _id are Strings
-function createSchemaModelFromJson(tableName, json) {
+function createSchemaModelFromJson(tableName, json, res) {
     let newSchema = {};
     let schemaConfig = {collection: tableName, _id: false, versionKey: false};
     let propertyNames = Object.getOwnPropertyNames(json);
@@ -42,7 +42,7 @@ function createSchemaModelFromJson(tableName, json) {
         tables[tableName] = [schema, model];
     }
 
-    return model;
+    model.create(json).then( (returnedValue) => { res.json(returnedValue); }, (err) => { res.send(err); });
 }
 
 function updateSchemaModelFromJson(tableName, json, id, res) {
