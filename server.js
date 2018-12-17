@@ -96,7 +96,7 @@ const twoTableModels = require('./models/two-table.models');
 
 app.post('/api/:table1/:id1/:table2/:id2', addMapping);
 app.get('/api/:table1/:id/:table2', retriveRecordsForOneTable);
-// app.get('/api/:table/:id/:table2', retrieveFilteredRecordsForOneTable);
+// app.get('/api/:table/:id/:table2?', retrieveFilteredRecordsForOneTable);
 app.delete('/api/:table1/:id1/:table2/:id2', deleteMapping);
 app.delete('/api/:table1/:id1/:table2', deleteAllMappings);
 
@@ -117,9 +117,6 @@ function retriveRecordsForOneTable(req, res) {
     twoTableModels.getRecordsForOneTable(tableName1, tableName2, table1_id, res);
 }
 
-// GET /api/{table1}/{id}/{table2}?{predicates}
-
-
 // DELETE /api/{table1}/{id1}/{table2}/{id2}
 function deleteMapping(req, res) {
     let tableName1 = req.params.table1;
@@ -128,7 +125,6 @@ function deleteMapping(req, res) {
     let id2 = req.params.id2;
     twoTableModels.removeMapping(tableName1, tableName2, id1, id2, res);
 }
-
 
 // DELETE /api/{table1}/{id1}/{table2}
 function deleteAllMappings(req, res) {
